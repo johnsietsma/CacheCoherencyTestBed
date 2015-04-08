@@ -40,6 +40,6 @@ public:
 
 private:
 	timing_clock::time_point m_startTime;
-	unsigned int m_timeFactor; // A mutlplier on our time measurement, used to give a standard time for various workloads.
+	unsigned int m_timeFactor; // A multiplier on our time measurement, used to give a standard time for various workloads.
 	std::string m_timerName;
 };
