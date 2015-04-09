@@ -14,7 +14,7 @@ int main(int argc, char* argv[])
 {
 
 	// Cache line size
-	//Example1();
+	Example1();
 
 	// Parallelism
 	//Example2();

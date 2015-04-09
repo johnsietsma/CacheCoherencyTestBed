@@ -31,6 +31,8 @@ public:
 			<< std::to_string(elapsed.count()) + "ms";
 		if (m_timeFactor != 0) {
 			std::cout << std::setw(10)
+				<< "* "
+				<< std::setw(10)
 				<< std::to_string(m_timeFactor) + " = "
 				<< std::setw(10)
 				<< elapsed.count()*m_timeFactor;
