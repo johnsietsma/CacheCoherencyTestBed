@@ -1,8 +1,9 @@
 #include "Timer.h"
 
+#include <iostream>
 #include <string>
 
-template<int C>
+template<size_t C>
 struct Entity 
 {
 	char value;
@@ -13,29 +14,35 @@ struct Entity
 template<int C>
 static void LoopEntity()
 {
-	const int numEntities = 1024 * 1024;
-	Entity<C>* entities = new Entity<C>[numEntities];
+	const size_t numEntities = 1024 * 1024;
+    Entity<C>* entities = new Entity<C>[numEntities];
 
-	Timer t("Loop Entity " + std::to_string(C));
-	for (int i = 0; i < numEntities; i++)
-	{
-		entities[i].value *= 3;
-	}
+    {
+        Timer t(std::to_string(sizeof(Entity<C>)) + ",", false);
+        for (int i = 0; i < 1; i++)
+        {
+            for (int j = 0; j < numEntities; j++)
+            {
+                entities[j].value *= 3;
+            }
+            t.Lap();
+        }
+    }
 
 	delete entities;
 }
 
 
 template<int C>
-static void LoopHalf()
+static void LoopDecr()
 {
-	LoopHalf <C/2>();
+	LoopDecr<C-1>();
 	LoopEntity<C>();
 }
 
 
 template<>
-static void LoopHalf<2>()
+static void LoopDecr<2>()
 {
 	LoopEntity<2>();
 }
@@ -43,8 +50,10 @@ static void LoopHalf<2>()
 
 void Example1()
 {
-	LoopEntity<2>();  // Entities have size 2
-	LoopEntity<64>(); // Entities have size 16
+    //LoopEntity<2>();  // Entities have size 2
+    //LoopEntity<32>(); // Entities have size 64
 
-	LoopHalf<1024>();
+    std::cout << "Count,Time(ms)" << std::endl;
+    const int TotalSize = 128;
+    LoopDecr<TotalSize>();
 }
