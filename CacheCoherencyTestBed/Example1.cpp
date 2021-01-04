@@ -4,7 +4,7 @@
 #include <string>
 
 template<size_t C>
-struct Entity 
+struct Entity
 {
 	char value;
 	char padding[C-1];
@@ -17,9 +17,15 @@ static void LoopEntity()
 	const size_t numEntities = 1024 * 1024;
     Entity<C>* entities = new Entity<C>[numEntities];
 
+    for (int j = 0; j < numEntities; j++)
+    {
+        entities[j].value = 0;
+    }
+
+
     {
         Timer t(std::to_string(sizeof(Entity<C>)) + ",", false);
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < numEntities; j++)
             {
@@ -29,7 +35,7 @@ static void LoopEntity()
         }
     }
 
-	delete entities;
+	delete[] entities;
 }
 
 
@@ -51,9 +57,9 @@ static void LoopDecr<2>()
 void Example1()
 {
     //LoopEntity<2>();  // Entities have size 2
-    //LoopEntity<32>(); // Entities have size 64
+    //LoopEntity<64>(); // Entities have size 64
 
     std::cout << "Count,Time(ms)" << std::endl;
-    const int TotalSize = 128;
+    const int TotalSize = 256;
     LoopDecr<TotalSize>();
 }

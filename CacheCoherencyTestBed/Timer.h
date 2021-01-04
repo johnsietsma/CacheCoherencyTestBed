@@ -44,7 +44,6 @@ public:
 private:
     LARGE_INTEGER m_startTime;
     bool m_formatted;
-    float m_averageDenom;
 	std::string m_timerName;
     int m_lapCount = 0;
 
